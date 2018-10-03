@@ -6,9 +6,9 @@ import { DiffEditorModel, NgxEditorModel } from '../platform/editor';
   template: `
     <h1>Editor</h1>
     <button (click)="updateOptions()">Change Language</button>
-    <button (click)="code = ''; codeInput=''">Set Value To Empty String</button>
-    <button (click)="code = null; codeInput=null">Set Value To Null</button>
-    <button (click)="code = undefined; codeInput=undefined">Set Value To undefined</button>
+    <button (click)="code = ''">Set Value To Empty String</button>
+    <button (click)="code = null">Set Value To Null</button>
+    <button (click)="code = undefined">Set Value To undefined</button>
     <button (click)="showMultiple = !showMultiple">{{showMultiple ? 'Hide' : 'Show'}} Multiple Editor</button>
 
     <ngx-monaco-editor [options]="options" [(ngModel)]="code" (onInit)="onInit($event)"></ngx-monaco-editor>
@@ -29,7 +29,7 @@ export class AppComponent {
   editor: any;
   showMultiple = false;
   toggleLanguage = true;
-  options = {
+  options: Object = {
     theme: 'vs-dark'
   };
   code: string;
