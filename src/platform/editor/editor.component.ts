@@ -4,8 +4,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { BaseEditor } from './base-editor';
 import { NGX_MONACO_EDITOR_CONFIG, NgxMonacoEditorConfig } from './config';
-import { NgxEditorModel } from './types';
 import { fromEvent } from 'rxjs';
+import { editor } from 'monaco-editor';
+import ITextModel = editor.ITextModel;
 
 @Component({
   selector: 'ngx-monaco-editor',
@@ -34,7 +35,7 @@ export class EditorComponent extends BaseEditor implements ControlValueAccessor 
   onTouched = () => {};
 
   @Input('model')
-  set model(model: NgxEditorModel) {
+  set model(model: ITextModel) {
     this.options.model = model;
     if (this._editor) {
       this._editor.dispose();

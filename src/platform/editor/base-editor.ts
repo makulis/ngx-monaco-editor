@@ -1,6 +1,8 @@
 import { AfterViewInit, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NgxMonacoEditorConfig } from './config';
+import { editor } from 'monaco-editor';
+import IEditorConstructionOptions = editor.IEditorConstructionOptions;
 
 let loadedMonaco: boolean = false;
 let loadPromise: Promise<void>;
@@ -14,15 +16,15 @@ export abstract class BaseEditor implements AfterViewInit, OnDestroy {
   protected _windowResizeSubscription: Subscription;
 
   @Input('options')
-  set options(options: any) {
+  set options(options: IEditorConstructionOptions) {
     this._options = Object.assign({}, this.config.defaultOptions, options);
     if (this._editor) {
       this._editor.dispose();
-      this.initMonaco(options);
+      this.initMonaco(this._options);
     }
   }
 
-  get options(): any {
+  get options(): IEditorConstructionOptions {
     return this._options;
   }
 
@@ -68,7 +70,7 @@ export abstract class BaseEditor implements AfterViewInit, OnDestroy {
     }
   }
 
-  protected abstract initMonaco(options: any): void;
+  protected abstract initMonaco(options: IEditorConstructionOptions): void;
 
   ngOnDestroy() {
     if (this._windowResizeSubscription) {

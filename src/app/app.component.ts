@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { DiffEditorModel, NgxEditorModel } from '../platform/editor';
+import { editor } from 'monaco-editor';
+import IEditorConstructionOptions = editor.IEditorConstructionOptions;
 
 @Component({
   selector: 'app-root',
@@ -29,7 +31,7 @@ export class AppComponent {
   editor: any;
   showMultiple = false;
   toggleLanguage = true;
-  options: Object = {
+  options: IEditorConstructionOptions = {
     theme: 'vs-dark'
   };
   code: string;
@@ -76,7 +78,6 @@ export class AppComponent {
       this.code = this.jsCode;
       this.options = Object.assign({}, this.options, { language: 'javascript' });
     }
-
   }
 
   updateDiffModel(){
