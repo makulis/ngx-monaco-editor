@@ -61,6 +61,8 @@ export class DiffEditorComponent extends BaseEditor {
     let modifiedModel = monaco.editor.createModel(this._modifiedModel.code, this._modifiedModel.language);
 
     this._editorContainer.nativeElement.innerHTML = '';
+
+    // FIXME: { theme: 'vs-dark' } goes in, { theme: 'vs-dark vs-dark' } comes out when the model is updated
     this._editor = monaco.editor.createDiffEditor(this._editorContainer.nativeElement, options);
     this._editor.setModel({
       original: originalModel,

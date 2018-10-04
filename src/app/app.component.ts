@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { DiffEditorModel, NgxEditorModel } from '../platform/editor';
-import { editor } from 'monaco-editor';
-import IEditorConstructionOptions = editor.IEditorConstructionOptions;
 
 @Component({
   selector: 'app-root',
@@ -31,7 +29,7 @@ export class AppComponent {
   editor: any;
   showMultiple = false;
   toggleLanguage = true;
-  options: IEditorConstructionOptions = {
+  options = {
     theme: 'vs-dark'
   };
   code: string;

@@ -1,8 +1,6 @@
 import { AfterViewInit, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NgxMonacoEditorConfig } from './config';
-import { editor } from 'monaco-editor';
-import IEditorConstructionOptions = editor.IEditorConstructionOptions;
 
 let loadedMonaco: boolean = false;
 let loadPromise: Promise<void>;
@@ -16,7 +14,7 @@ export abstract class BaseEditor implements AfterViewInit, OnDestroy {
   protected _windowResizeSubscription: Subscription;
 
   @Input('options')
-  set options(options: IEditorConstructionOptions) {
+  set options(options: any) {
     this._options = Object.assign({}, this.config.defaultOptions, options);
     if (this._editor) {
       this._editor.dispose();
@@ -24,7 +22,7 @@ export abstract class BaseEditor implements AfterViewInit, OnDestroy {
     }
   }
 
-  get options(): IEditorConstructionOptions {
+  get options(): any {
     return this._options;
   }
 
@@ -34,7 +32,7 @@ export abstract class BaseEditor implements AfterViewInit, OnDestroy {
     if (loadedMonaco) {
       // Wait until monaco editor is available
       loadPromise.then(() => {
-        this.initMonaco(this.options);
+        this.initMonaco(this._options);
       });
     } else {
       loadedMonaco = true;
@@ -51,7 +49,7 @@ export abstract class BaseEditor implements AfterViewInit, OnDestroy {
             if (typeof this.config.onMonacoLoad === 'function') {
               this.config.onMonacoLoad();
             }
-            this.initMonaco(this.options);
+            this.initMonaco(this._options);
             resolve();
           });
         };
@@ -70,7 +68,7 @@ export abstract class BaseEditor implements AfterViewInit, OnDestroy {
     }
   }
 
-  protected abstract initMonaco(options: IEditorConstructionOptions): void;
+  protected abstract initMonaco(options: any): void;
 
   ngOnDestroy() {
     if (this._windowResizeSubscription) {
