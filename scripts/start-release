@@ -1,23 +1,25 @@
 #!/bin/bash
+# call as follows: $ bash ./scripts/start-release <version> where <version> is either 'major', 'minor', 'patch' or 'prerelease'
+# example: bash ./scripts/start-release major
 version=$1
 
 set -e
 
 echo "Started release $version"
 
-git flow release start v$version develop
+#git flow release start $version develop
 
 gulp bump-version --ver $version
 
-git add -A .
+#git add -A .
 
-git commit -a -m "Version bump"
+#git commit -a -m "Version bump"
 
 echo "Publishing release v$version"
-git flow release publish v$version
+#git flow release publish v$version
 
 echo "Executed lint test"
-npm run lint
+#npm run lint
 
 echo "Executed unit tests"
-npm run test
+#npm run test
