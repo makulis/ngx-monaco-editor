@@ -26,6 +26,10 @@ mkdir deploy/platform/editor/assets
 mkdir deploy/platform/editor/assets/monaco
 cp -rf node_modules/monaco-editor/min/* deploy/platform/editor/assets/monaco/
 
+# workaround: replace the generated types.d.ts file with a pre-created one
+# the generated types.d.ts file contains a relative reference path
+cp -rf src/platform/editor/types.d.ts deploy/platform/editor
+
 # Clean source .ts files
 cd deploy/
 find . -name "*.ts" ! -name "*.d.ts" -type f -delete
